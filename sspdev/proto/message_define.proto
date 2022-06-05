@@ -1,0 +1,193 @@
+package ssp;
+
+message MsgHeader {
+	optional uint32 ver = 1;
+	optional uint32 cmd_type = 2;
+}
+
+message RegReq {
+	optional MsgHeader header = 1; // cmd:401
+	optional string user_name = 3;
+	optional string password = 4;
+	optional uint32 from = 5;
+};
+
+message RegRsp {
+	optional MsgHeader header = 1; // cmd:402
+	optional uint32 ret = 3;
+	optional uint32 user_id = 4;
+};
+
+message LoginReq {
+	optional uint32 ver = 1;
+	optional uint32 cmd_type = 2; // 101
+	optional string user_name = 3;
+	optional string password = 4;
+};
+
+message LoginRsp {
+	optional uint32 ver = 1;
+	optional uint32 cmd_type = 2; // 102
+	optional uint32 ret = 3; 
+	optional uint32 user_id = 4;
+}
+
+message LogoutReq {
+	optional uint32 user_id = 3; // 103
+}
+
+message LogoutRsp {
+	optional uint32 ret = 2;
+}
+
+message AddFriendReq {
+	optional MsgHeader header = 1;
+	optional uint32 user_id = 2;
+	optional uint32 other_id = 3;
+}
+
+message AddFriendRsp {
+	optional MsgHeader header = 1;
+	optional uint32 ret = 2;
+}
+
+message DelFriendReq {
+	optional MsgHeader header = 1;
+	optional uint32 user_id = 2;
+	optional uint32 other_id = 3;
+}
+
+message DelFriendRsp {
+	optional MsgHeader header = 1;
+	optional uint32 ret =2;
+}
+
+message PublishMessageReq {
+	optional MsgHeader header = 1;
+	optional uint32 user_id = 2;
+	optional string content = 3;
+}
+
+message PublishMessageRsp {
+	optional MsgHeader header = 1;
+	optional uint32 ret = 2;
+}
+
+message GetMessageListReq {
+	optional MsgHeader header = 1;
+	optional uint32 user_id = 2;
+}
+
+message MessageItem {
+	optional uint32 publisher_id = 1;
+	optional uint32 Publish_time = 2;
+	optional string content = 3;
+}
+message GetMessageListRsp {
+	optional MsgHeader header = 1;
+	optional uint32 ret = 2;
+	repeated MessageItem message_list = 3;
+}
+
+message GetPhotoReq {
+	optional MsgHeader header = 1;
+	optional uint32 user_id = 2;
+}
+
+message GetPhotoRsp {
+	optional MsgHeader header = 1;
+	optional uint32 ret = 2;
+	optional uint32 last_publisher_id = 3;
+	optional string last_publish_name = 4;
+}
+
+message CommonReq {
+	optional MsgHeader header = 1;
+	optional RegReq reg_req = 2;
+	optional LoginReq login_req = 3;
+	optional LogoutReq logout_req = 4;
+	optional AddFriendReq add_friend_req = 5;
+	optional DelFriendReq del_friend_req = 6;
+	optional PublishMessageReq publish_message_req = 7;
+	optional GetPhotoReq get_photo_req = 8;
+	optional GetMessageListReq get_message_list_req = 9;
+
+}
+
+message CommonRsp {
+	optional MsgHeader header = 1;
+	optional RegRsp reg_rsp = 2;
+	optional LoginRsp login_rsp = 3;
+	optional LogoutRsp logout_rsp = 4;
+	optional AddFriendRsp add_friend_rsp = 5;
+	optional DelFriendRsp del_friend_rsp = 6;
+	optional PublishMessageRsp publish_message_rsp = 7;
+	optional GetPhotoRsp get_photo_rsp = 8;
+	optional GetMessageListRsp get_message_list_rsp = 9;
+}
+
+message GetUserIdByNameReq {
+	optional MsgHeader header = 1;
+	optional string user_name = 2;
+}
+
+message GetUserIdByNameRsp {
+	optional MsgHeader header = 1;
+	optional int32 ret = 2;
+	optional int32 user_id = 3;
+}
+
+
+message CreateUserReq {
+	optional MsgHeader header = 1;
+	optional string user_name = 2;
+	optional string password = 3;
+	optional int32 from = 4;
+}
+
+message CreateUserRsp {
+	optional MsgHeader header = 1;
+	optional int32 ret = 2;
+	optional int32 user_id = 3;
+}
+
+
+message LoginCheckReq {
+	optional MsgHeader header = 1;
+	optional string user_name = 2;
+	optional string password = 3;
+}
+
+message LoginCheckRsp {
+	optional MsgHeader header = 1;
+	optional int32 ret = 2;
+	optional int32 user_id = 3;
+}
+
+
+message CheckUserExistReq {
+	optional MsgHeader header = 1;
+	optional int32 user_id = 2;
+}
+
+message CheckUserExistRsp {
+	optional MsgHeader header = 1;
+	optional int32 ret = 2;
+}
+
+message ServerToUserReq {
+	optional MsgHeader header = 1;
+	optional GetUserIdByNameReq get_user_id = 2;
+	optional CreateUserReq create_user = 3;
+	optional LoginCheckReq login_check = 4;
+	optional CheckUserExistReq check_user_exist = 5;
+}
+
+message UserToServerRsp {
+	optional MsgHeader header = 1;
+	optional GetUserIdByNameRsp get_user_id = 2;
+	optional CreateUserRsp create_user = 3;
+	optional LoginCheckRsp login_check = 4;
+	optional CheckUserExistRsp check_user_exist = 5;
+}
+
