@@ -1,1 +1,1 @@
-# my-social-platform
+# my-small-social-platform
