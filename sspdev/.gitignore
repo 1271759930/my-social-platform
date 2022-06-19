@@ -1,3 +1,7 @@
+# protobuf
+*.pb.h
+*.pb.cc
+
 # Prerequisites
 *.d
 
